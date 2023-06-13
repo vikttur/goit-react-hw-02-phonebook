@@ -4,18 +4,12 @@ import React, { Component } from 'react';
 
 export default class ContactForm extends Component {
   state = {
-    contacts: [],
-    filter: '',
+    name: '',
+    number: '',
   };
 
   render() {
-    return (
-      <></>
-      // <section className={css.section}>
-      // 	{title && <h2 className={css.header}>{title}</h2>}
-      // 	{children}
-      // </section>
-    );
+    return <></>;
   }
 }
 

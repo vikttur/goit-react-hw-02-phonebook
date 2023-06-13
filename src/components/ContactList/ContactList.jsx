@@ -1,19 +1,23 @@
-// import PropTypes from 'prop-types';
-// import ContactItems from './components/ContactItems/ContactItems';
-// import css from './ContactList.module.css';
+import PropTypes from 'prop-types';
+import ContactItems from '../ContactItems/ContactItems';
+import css from './ContactList.module.css';
 
-export default function ContactList({ title, children }) {
+export default function ContactList({ contacts }) {
   return (
-    <></>
-    // <ContactItems />
-    // <section className={css.section}>
-    // {title && <h2 className={css.header}>{title}</h2>}
-    // 	{children}
-    // </section>
+    <ul className={css.list}>
+      {contacts.map(({ id, name, number }) => {
+        return <ContactItems key={id} name={name} number={number} />;
+      })}
+    </ul>
   );
 }
 
-// ContactList.propTypes = {
-// 	title: PropTypes.string.isRequired,
-// 	children: PropTypes.element.isRequired,
-// };
+ContactList.propTypes = {
+  contacts: PropTypes.arrayOf(
+    PropTypes.exact({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};

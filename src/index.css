@@ -2,16 +2,12 @@
 
 :root {
 	--color-body: #f5f5f5;
-	/*yes*/
 	--color-text: #212121;
-	/*yes*/
 	--color-button: #efede7;
 	--color-accent: #8ecae0;
 	--color-card: #fefefe;
 
 	--line-border: 1px solid rgba(50, 52, 52, 0.2);
-	/*yes*/
-
 	--time-animation: 250ms;
 	--timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -52,8 +48,4 @@ ol {
 	padding: 0;
 	margin: 0;
 	list-style: none;
-}
-
-a {
-	text-decoration: none;
 }

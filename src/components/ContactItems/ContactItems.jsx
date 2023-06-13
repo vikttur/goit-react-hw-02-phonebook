@@ -1,17 +1,24 @@
-// import PropTypes from 'prop-types';
-// import css from './ContactItems.module.css';
+import PropTypes from 'prop-types';
+import css from './ContactItems.module.css';
 
-export default function ContactItems({ title, children }) {
+export default function ContactItems({ name, number }) {
   return (
-    <></>
-    // <section className={css.section}>
-    // 	{title && <h2 className={css.header}>{title}</h2>}
-    // 	{children}
-    // </section>
+    <li className={css.item}>
+      <span className={css.marker}></span>
+      <p className={css.label}>{name}:</p>
+      <p className={css.quantity}>{number}</p>
+      <button
+        type="button"
+        className={css.buttonDelete}
+        // onClick={() => onLeaveFeedback(feedback)}
+      >
+        Delete
+      </button>
+    </li>
   );
 }
 
-// ContactItems.propTypes = {
-// 	title: PropTypes.string.isRequired,
-// 	children: PropTypes.element.isRequired,
-// };
+ContactItems.propTypes = {
+  name: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
+};
