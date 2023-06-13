@@ -1,20 +1,45 @@
-// import user from "./data/user.json";
-// import data from "./data/data.json";
-// import friends from "./data/friends.json";
-// import transactions from "./data/transactions.json";
+import React, { Component } from 'react';
+import Section from './components/Section/Section';
+import ContactForm from './components/ContactForm/ContactForm';
+import SearchFilter from './components/SearchFilter/SearchFilter';
+import ContactList from './components/ContactList/ContactList';
+import Notification from './components/Notification/Notification';
 
-// import Profile from "./components/Profile/Profile";
-// import Statistics from "./components/Statistics/Statistics";
-// import FriendList from "./components/FriendList/FriendList";
-// import TransactionHistory from "./components/TransactionHistory/TransactionHistory";
+export default class App extends Component {
+  state = {
+    contacts: [],
+    filter: '',
+  };
 
-export default function App() {
-  return (
-    <>
-      {/* <Profile username={username} tag={tag} location={location} avatar={avatar} stats={stats} />
-			<Statistics title="Upload stats" stats={data} />
-			<FriendList friends={friends} />
-			<TransactionHistory items={transactions} /> */}
-    </>
-  );
+  // onLeaveFeedback = option =>
+  //   this.setState(prevState => ({ [option]: prevState[option] + 1 }));
+
+  // countTotalFeedback = () =>
+  //   Object.values(this.state).reduce((acc, value) => acc + value, 0);
+
+  // countPositiveFeedbackPercentage = () =>
+  //   Number.parseInt((this.state.good / this.countTotalFeedback()) * 100) + '%';
+
+  render() {
+    // const { good, neutral, bad } = this.state;
+
+    return (
+      <>
+        <Section title="Phonebook">
+          <ContactForm />
+        </Section>
+
+        <Section title="Contacts">
+          {this.state.contacts.length !== 0 ? (
+            <>
+              <SearchFilter />
+              <ContactList />
+            </>
+          ) : (
+            <Notification message="The contact list is empty" />
+          )}
+        </Section>
+      </>
+    );
+  }
 }
