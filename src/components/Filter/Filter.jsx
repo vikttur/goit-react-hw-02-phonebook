@@ -1,8 +1,8 @@
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
-import css from './SearchFilter.module.css';
+import css from './Filter.module.css';
 
-export default function SearchFilter({ filter, onHandleFilterChange }) {
+export default function Filter({ value, onHandlerFilterChange, onDisplayAll }) {
   const filterInputId = nanoid();
 
   return (
@@ -13,22 +13,23 @@ export default function SearchFilter({ filter, onHandleFilterChange }) {
         name="name"
         id={filterInputId}
         className={css.inputField}
-        value={filter}
+        value={value}
         placeholder="Enter name"
-        onChange={onHandleFilterChange}
+        onChange={onHandlerFilterChange}
       />
       <button
         type="button"
         className={css.button}
-        // onClick={() => (input.value = '')}
+        onClick={() => onDisplayAll()}
       >
-        Clean up
+        Show all
       </button>
     </label>
   );
 }
 
-SearchFilter.propTypes = {
-  filter: PropTypes.string.isRequired,
-  onHandleFilterChange: PropTypes.func.isRequired,
+Filter.propTypes = {
+  value: PropTypes.string.isRequired,
+  onHandlerFilterChange: PropTypes.func.isRequired,
+  onDisplayAll: PropTypes.func.isRequired,
 };

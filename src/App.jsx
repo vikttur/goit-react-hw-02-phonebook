@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
 import Section from './components/Section/Section';
 import ContactForm from './components/ContactForm/ContactForm';
-import SearchFilter from './components/SearchFilter/SearchFilter';
+import Filter from './components/Filter/Filter';
 import ContactList from './components/ContactList/ContactList';
 import Notification from './components/Notification/Notification';
 
@@ -20,69 +20,68 @@ export default class App extends Component {
     filter: '',
   };
 
-  formSubmitHandler = data => {
-    const { name, number } = data;
-
+  formSubmitHandler = ({ name, number }) => {
     const contact = {
       id: nanoid(),
       name,
       number,
     };
 
-    this.setState(prevState => ({
-      contacts: [contact, ...prevState.contacts],
-    }));
-    console.log(this.state.contacts);
+    this.addContact(contact);
   };
 
-  // фільтрація
-  handleFilterChange = e => {
-    const { value } = e.currentTarget;
-    this.setState({ contacts: TEST_CONTACTS, filter: value });
-
-    this.contactFilter(value);
+  addContact = contact => {
+    this.setState(({ contacts }) => ({
+      contacts: [contact, ...contacts],
+    }));
   };
 
-  contactFilter = name => {
-    this.setState(prevState => ({
-      contacts: prevState.contacts.filter(function (contact) {
-        return contact.name.toLowerCase().indexOf(name.toLowerCase()) > -1;
-      }),
-    }));
+  handlerFilterChange = e => {
+    this.setState({ filter: e.currentTarget.value });
+  };
+
+  DisplayAll = () => {
+    this.setState({ filter: '' });
   };
 
   deleteContact = id => {
-    this.setState(prevState => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== id),
+    this.setState(({ contacts }) => ({
+      contacts: contacts.filter(contact => contact.id !== id),
     }));
   };
 
   render() {
     const { contacts, filter } = this.state;
+    const normalizedFilter = this.state.filter.toLowerCase();
+
+    const visibleContact = this.state.contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter)
+    );
 
     return (
-      <>
+      <div>
         <Section title="Phonebook">
           <ContactForm onFormHandler={this.formSubmitHandler} />
         </Section>
 
         <Section title="Contacts">
-          <>
-            <SearchFilter
-              filter={filter}
-              onHandleFilterChange={this.handleFilterChange}
-            />
-            {contacts.length !== 0 ? (
+          {contacts.length !== 0 ? (
+            <>
+              <Filter
+                value={filter}
+                onHandlerFilterChange={this.handlerFilterChange}
+                onDisplayAll={this.DisplayAll}
+              />
               <ContactList
-                contacts={contacts}
+                contacts={visibleContact}
                 onDeleteContact={this.deleteContact}
               />
-            ) : (
-              <Notification message="The contact list is empty" />
-            )}
-          </>
+            </>
+          ) : (
+            <Notification message="The contact list is empty" />
+          )}
         </Section>
-      </>
+      </div>
     );
   }
 }
