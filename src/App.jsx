@@ -40,6 +40,15 @@ export default class App extends Component {
     this.setState({ filter: e.currentTarget.value });
   };
 
+  getVisibleContact = () => {
+    const { contacts, filter } = this.state;
+    const normalizedFilter = filter.toLowerCase();
+
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter)
+    );
+  };
+
   DisplayAll = () => {
     this.setState({ filter: '' });
   };
@@ -52,14 +61,10 @@ export default class App extends Component {
 
   render() {
     const { contacts, filter } = this.state;
-    const normalizedFilter = this.state.filter.toLowerCase();
-
-    const visibleContact = this.state.contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizedFilter)
-    );
+    const visibleContact = this.getVisibleContact();
 
     return (
-      <div>
+      <>
         <Section title="Phonebook">
           <ContactForm onFormHandler={this.formSubmitHandler} />
         </Section>
@@ -81,7 +86,7 @@ export default class App extends Component {
             <Notification message="The contact list is empty" />
           )}
         </Section>
-      </div>
+      </>
     );
   }
 }
