@@ -28,18 +28,49 @@ export default class App extends Component {
   // countPositiveFeedbackPercentage = () =>
   //   Number.parseInt((this.state.good / this.countTotalFeedback()) * 100) + '%';
 
+  formSubmitHandler = data => {
+    console.log(data);
+    // this.setState(prevState => ({ contacts: prevState.name.push(data) }));
+  };
+
+  // фільтрація
+  handleFilterChange = e => {
+    const { value } = e.currentTarget;
+    this.setState({ filter: value });
+
+    // this.contactFilter();
+  };
+
+  contactFilter = () => {
+    this.state.contacts.filter({});
+  };
+
+  deleteContact = id => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== id),
+    }));
+  };
+
   render() {
+    const { contacts, filter } = this.state;
+
     return (
       <>
         <Section title="Phonebook">
-          <ContactForm />
+          <ContactForm onFormHandler={this.formSubmitHandler} />
         </Section>
 
         <Section title="Contacts">
-          {this.state.contacts.length !== 0 ? (
+          {contacts.length !== 0 ? (
             <>
-              <SearchFilter />
-              <ContactList contacts={this.state.contacts} />
+              <SearchFilter
+                filter={filter}
+                onHandleFilterChange={this.handleFilterChange}
+              />
+              <ContactList
+                contacts={contacts}
+                onDeleteContact={this.deleteContact}
+              />
             </>
           ) : (
             <Notification message="The contact list is empty" />

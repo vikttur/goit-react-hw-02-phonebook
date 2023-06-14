@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import css from './ContactItems.module.css';
 
-export default function ContactItems({ name, number }) {
+export default function ContactItems({ id, name, number, onDeleteContact }) {
   return (
     <li className={css.item}>
       <span className={css.marker}></span>
@@ -10,7 +10,7 @@ export default function ContactItems({ name, number }) {
       <button
         type="button"
         className={css.button}
-        // onClick={() => onLeaveFeedback(feedback)}
+        onClick={() => onDeleteContact(id)}
       >
         Delete
       </button>
@@ -19,6 +19,8 @@ export default function ContactItems({ name, number }) {
 }
 
 ContactItems.propTypes = {
+  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   number: PropTypes.string.isRequired,
+  onDeleteContact: PropTypes.func.isRequired,
 };
