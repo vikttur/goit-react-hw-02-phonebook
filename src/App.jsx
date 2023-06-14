@@ -6,7 +6,7 @@ import Filter from './components/Filter/Filter';
 import ContactList from './components/ContactList/ContactList';
 import Notification from './components/Notification/Notification';
 
-const TEST_CONTACTS = [
+const LIST_CONTACTS = [
   { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
   { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
   { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
@@ -15,8 +15,7 @@ const TEST_CONTACTS = [
 
 export default class App extends Component {
   state = {
-    contacts: TEST_CONTACTS,
-    // contacts: [],
+    contacts: LIST_CONTACTS,
     filter: '',
   };
 
@@ -31,9 +30,23 @@ export default class App extends Component {
   };
 
   addContact = contact => {
+    const { contacts } = this.state;
+    const { name } = contact;
+
+    if (this.isExist(contacts, name)) {
+      alert(`${name} is already in contacts.`);
+      return;
+    }
+
     this.setState(({ contacts }) => ({
       contacts: [contact, ...contacts],
     }));
+  };
+
+  isExist = (contacts, name) => {
+    return contacts.find(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
+    );
   };
 
   handlerFilterChange = e => {
