@@ -69,9 +69,7 @@ export default class ContactForm extends Component {
           />
         </label>
 
-        <button type="submit" className={css.button}>
-          Add contact
-        </button>
+        <button type="submit">Add contact</button>
       </form>
     );
   }

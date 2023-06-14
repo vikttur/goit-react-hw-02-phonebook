@@ -17,11 +17,7 @@ export default function Filter({ value, onHandlerFilterChange, onDisplayAll }) {
         placeholder="Enter name"
         onChange={onHandlerFilterChange}
       />
-      <button
-        type="button"
-        className={css.button}
-        onClick={() => onDisplayAll()}
-      >
+      <button type="button" onClick={() => onDisplayAll()}>
         Show all
       </button>
     </label>
