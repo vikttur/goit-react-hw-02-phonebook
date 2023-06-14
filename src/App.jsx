@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { nanoid } from 'nanoid';
 import Section from './components/Section/Section';
 import ContactForm from './components/ContactForm/ContactForm';
 import SearchFilter from './components/SearchFilter/SearchFilter';
@@ -19,30 +20,35 @@ export default class App extends Component {
     filter: '',
   };
 
-  // onLeaveFeedback = option =>
-  //   this.setState(prevState => ({ [option]: prevState[option] + 1 }));
-
-  // countTotalFeedback = () =>
-  //   Object.values(this.state).reduce((acc, value) => acc + value, 0);
-
-  // countPositiveFeedbackPercentage = () =>
-  //   Number.parseInt((this.state.good / this.countTotalFeedback()) * 100) + '%';
-
   formSubmitHandler = data => {
-    console.log(data);
-    // this.setState(prevState => ({ contacts: prevState.name.push(data) }));
+    const { name, number } = data;
+
+    const contact = {
+      id: nanoid(),
+      name,
+      number,
+    };
+
+    this.setState(prevState => ({
+      contacts: [contact, ...prevState.contacts],
+    }));
+    console.log(this.state.contacts);
   };
 
   // фільтрація
   handleFilterChange = e => {
     const { value } = e.currentTarget;
-    this.setState({ filter: value });
+    this.setState({ contacts: TEST_CONTACTS, filter: value });
 
-    // this.contactFilter();
+    this.contactFilter(value);
   };
 
-  contactFilter = () => {
-    this.state.contacts.filter({});
+  contactFilter = name => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(function (contact) {
+        return contact.name.toLowerCase().indexOf(name.toLowerCase()) > -1;
+      }),
+    }));
   };
 
   deleteContact = id => {
@@ -61,20 +67,20 @@ export default class App extends Component {
         </Section>
 
         <Section title="Contacts">
-          {contacts.length !== 0 ? (
-            <>
-              <SearchFilter
-                filter={filter}
-                onHandleFilterChange={this.handleFilterChange}
-              />
+          <>
+            <SearchFilter
+              filter={filter}
+              onHandleFilterChange={this.handleFilterChange}
+            />
+            {contacts.length !== 0 ? (
               <ContactList
                 contacts={contacts}
                 onDeleteContact={this.deleteContact}
               />
-            </>
-          ) : (
-            <Notification message="The contact list is empty" />
-          )}
+            ) : (
+              <Notification message="The contact list is empty" />
+            )}
+          </>
         </Section>
       </>
     );

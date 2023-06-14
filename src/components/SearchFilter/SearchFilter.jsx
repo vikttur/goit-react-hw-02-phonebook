@@ -17,6 +17,13 @@ export default function SearchFilter({ filter, onHandleFilterChange }) {
         placeholder="Enter name"
         onChange={onHandleFilterChange}
       />
+      <button
+        type="button"
+        className={css.button}
+        // onClick={() => (input.value = '')}
+      >
+        Clean up
+      </button>
     </label>
   );
 }
