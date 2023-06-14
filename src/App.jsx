@@ -5,7 +5,7 @@ import SearchFilter from './components/SearchFilter/SearchFilter';
 import ContactList from './components/ContactList/ContactList';
 import Notification from './components/Notification/Notification';
 
-const STARTING_CONTACTS = [
+const TEST_CONTACTS = [
   { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
   { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
   { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
@@ -14,7 +14,8 @@ const STARTING_CONTACTS = [
 
 export default class App extends Component {
   state = {
-    contacts: STARTING_CONTACTS,
+    contacts: TEST_CONTACTS,
+    // contacts: [],
     filter: '',
   };
 
@@ -28,8 +29,6 @@ export default class App extends Component {
   //   Number.parseInt((this.state.good / this.countTotalFeedback()) * 100) + '%';
 
   render() {
-    // const { good, neutral, bad } = this.state;
-
     return (
       <>
         <Section title="Phonebook">

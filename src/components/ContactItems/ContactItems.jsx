@@ -9,7 +9,7 @@ export default function ContactItems({ name, number }) {
       <p className={css.quantity}>{number}</p>
       <button
         type="button"
-        className={css.buttonDelete}
+        className={css.button}
         // onClick={() => onLeaveFeedback(feedback)}
       >
         Delete

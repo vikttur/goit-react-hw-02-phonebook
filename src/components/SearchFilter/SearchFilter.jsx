@@ -1,13 +1,23 @@
+import { nanoid } from 'nanoid';
 // import PropTypes from 'prop-types';
-// import css from './SearchFilter.module.css';
+import css from './SearchFilter.module.css';
 
 export default function SearchFilter({ title, children }) {
+  const filtrInputId = nanoid();
   return (
-    <></>
-    // <section className={css.section}>
-    //   {title && <h2 className={css.header}>{title}</h2>}
-    //   {children}
-    // </section>
+    <label htmlFor={filtrInputId} className={css.inputBlock}>
+      Find contacts by name
+      <input
+        type="text"
+        name="name"
+        id={filtrInputId}
+        className={css.inputField}
+        placeholder="Enter name"
+        pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+        title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+        required
+      />
+    </label>
   );
 }
 
